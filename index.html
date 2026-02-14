@@ -21,13 +21,56 @@ position: relative;
 
 .container {
 background: white;
-padding: 40px;
+padding: 30px;
 border-radius: 20px;
 box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-max-width: 400px;
-width: 90%;
+width: 95%;
+max-width: 600px;
 position: relative;
 z-index: 2;
+}
+
+h1 {
+margin-bottom: 20px;
+color: #ff4d88;
+font-size: 2em;
+}
+
+img {
+width: 100%;
+max-width: 500px;
+border-radius: 15px;
+transition: opacity 0.4s ease;
+}
+
+.buttons {
+margin-top: 30px;
+position: relative;
+height: 100px;
+}
+
+button {
+padding: 14px 28px;
+font-size: 18px;
+border: none;
+border-radius: 30px;
+cursor: pointer;
+transition: all 0.2s ease;
+position: absolute;
+}
+
+#yesBtn {
+background-color: #ff4d88;
+color: white;
+left: 20%;
+}
+
+#noBtn {
+background-color: #cccccc;
+color: black;
+right: 20%;
+}
+
 /* Confetti */
 .confetti {
 position: fixed;
@@ -42,28 +85,14 @@ animation: fall 3s linear infinite;
 to { transform: translateY(100vh) rotate(360deg); }
 }
 
-/* Floating hearts */
-.heart {
-position: fixed;
-font-size: 16px;
-color: #ff4d88;
-user-select: none;
-pointer-events: none;
-animation: floatUp linear infinite;
-}
-
-@keyframes floatUp {
-0% { transform: translateY(0) scale(1); opacity:1; }
-100% { transform: translateY(-100vh) scale(1.5); opacity:0; }
-}
-
 /* Typing animation */
 .typewriter {
 display: inline-block;
 overflow: hidden;
 white-space: nowrap;
 border-right: .15em solid #ff4d88;
-animation: typing 3s steps(30, end), blink .75s step-end infinite;
+animation: typing 4s steps(40, end), blink .75s step-end infinite;
+font-size: 1.5em;
 }
 
 @keyframes typing {
@@ -88,7 +117,6 @@ border-radius: 12px;
 cursor: pointer;
 z-index: 5;
 }
-
 </style>
 </head>
 <body>
@@ -97,7 +125,7 @@ z-index: 5;
 
 <div class="container">
 <h1 id="headline">Hi… I have something important to ask you…</h1>
-<img id="mainGif" src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExemtzcTBzNm05cnFnZGN4aGd0NDMycDZqYTZ5NmFsdGdnNzd3eTBmayZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/qnaCSVwRTmsgg/giphy.gif" alt="Beggy Eyes">
+<img id="mainGif" src="https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif" alt="Beggy Puppy Eyes">
 <div class="buttons">
 <button id="nextBtn">Okay…</button>
 </div>
@@ -125,19 +153,6 @@ musicToggle.innerText = "🎵 Music";
 }
 });
 
-// Floating hearts generator
-function createHeart(){
-const heart = document.createElement('div');
-heart.className = 'heart';
-heart.innerText = '💖';
-heart.style.left = Math.random()*100 + 'vw';
-heart.style.fontSize = (12+Math.random()*18) + 'px';
-heart.style.animationDuration = (4+Math.random()*3)+'s';
-document.body.appendChild(heart);
-setTimeout(()=> heart.remove(), 7000);
-}
-setInterval(createHeart, 500);
-
 let stage = 0;
 let noAttempts = 0;
 
@@ -160,7 +175,7 @@ stage++;
 clearButtons();
 if(stage===1){
 headline.innerText = "I've been thinking about this for a while...";
-gif.src = "https://media.giphy.com/media/3o7abB06u9bNzA8lu8/giphy.gif";
+gif.src = "https://media.giphy.com/media/l3vR1U7tP5hSJv8Oc/giphy.gif"; // Sad Puppy
 const btn = document.createElement('button');
 btn.innerText = "Go on…";
 buttonsDiv.appendChild(btn);
@@ -171,7 +186,7 @@ btn.addEventListener('click', ()=>{ stage++; advanceStage(); });
 function advanceStage(){
 if(stage===2){
 headline.innerText = "You mean a lot to me…";
-gif.src = "https://media.giphy.com/media/l3vR1U7tP5hSJv8Oc/giphy.gif"; // sad puppy eyes
+gif.src = "https://media.giphy.com/media/3o6ZsVf5m2dNClx91W/giphy.gif"; // Sad Bean
 const btn = document.createElement('button');
 btn.innerText = "WHAT IS IT??";
 buttonsDiv.appendChild(btn);
@@ -181,7 +196,7 @@ btn.addEventListener('click', ()=>{ stage++; showFinalQuestion(); });
 
 function showFinalQuestion(){
 headline.innerText = "Will you bean my Valentine? 🫘💘";
-gif.src = "https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif";
+gif.src = "https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif"; // Beggy Puppy
 
 clearButtons();
 
@@ -197,7 +212,7 @@ noBtn.addEventListener('touchstart', e=>{ e.preventDefault(); moveNo(); });
 function moveNo(){
 noAttempts++;
 const maxX = container.offsetWidth - noBtn.offsetWidth;
-const maxY = 80 - noBtn.offsetHeight;
+const maxY = 100 - noBtn.offsetHeight;
 const randomX = Math.random()*maxX;
 const randomY = Math.random()*maxY;
 noBtn.style.left = randomX+'px';
@@ -212,7 +227,7 @@ if(noAttempts>9) noBtn.style.display="none";
 yesBtn.addEventListener('click', ()=>{
 gif.style.opacity=0;
 setTimeout(()=>{
-gif.src="https://media.giphy.com/media/26ufdipQqU2lhNA4g/giphy.gif"; // celebration GIF
+gif.src="https://media.giphy.com/media/l41lI4bYmcsPJX9Go/giphy.gif"; // Beans & Puppies Celebration
 gif.style.opacity=1;
 },300);
 
@@ -222,14 +237,14 @@ noBtn.style.display="none";
 launchConfetti();
 
 setTimeout(()=>{
-// Swap to Adam Sandler GIF
-gif.src = "https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif";
-gif.style.width = "280px";
+// Swap to Adam Sandler GIF from Wedding Singer
+gif.src = "https://media.tenor.com/uj7ti51g5RAAAAAC/adam-sandler-the-wedding-singer.gif";
+gif.style.width = "300px";
 
 // Typing quote
 const quote = document.createElement('p');
 quote.style.marginTop="20px";
-quote.style.fontSize="18px";
+quote.style.fontSize="1.5em";
 quote.style.color="#ff4d88";
 quote.className='typewriter';
 quote.innerHTML='“I wanna grow old with you.”<br><br>— Adam Sandler, <em>The Wedding Singer</em> 🎤💖';
